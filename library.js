@@ -8,7 +8,7 @@ function Book(title, author, pages, read) {
 }
 
 Book.prototype.info = function() {
-    return `${title} by ${author}, ${pages} pages, ` + (read ? 'have read' : 'not read yet')
+    return `${this.title} by ${this.author}, ${this.pages} pages, ` + (this.read ? 'have read' : 'not read yet')
 }
 
 function addBookToLibrary() {
