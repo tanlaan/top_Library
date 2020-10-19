@@ -18,7 +18,7 @@ function addBookToLibrary(book) {
 }
 
 function readBooksInLibrary(library) {
-    let library = document.getElementById('library')
+    let libraryPath = document.getElementById('library')
     let bookTable = document.createElement('table')
     let tableBody = document.createElement('tbody')
     let tableHeader = document.createElement('tr')
@@ -27,11 +27,12 @@ function readBooksInLibrary(library) {
     <th>Author</th>
     <th>Page Count</th>
     <th>Read It?</th>`)
+    tableBody.appendChild(tableHeader)
     for (book in library) {
         tableBody.appendChild(printBook(library[book]))
     }
     bookTable.appendChild(tableBody)
-    library.appendChild(bookTable)
+    libraryPath.appendChild(bookTable)
 }
 
 function printBook(book) {
