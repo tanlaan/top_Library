@@ -1,4 +1,6 @@
 let myLibrary = []
+let test = new Book('testTitles', 'testAuthor', 42, true)
+myLibrary.push(test)
 
 function Book(title, author, pages, read) {
     this.title = title
@@ -11,6 +13,40 @@ Book.prototype.info = function() {
     return `${this.title} by ${this.author}, ${this.pages} pages, ` + (this.read ? 'have read' : 'not read yet')
 }
 
-function addBookToLibrary() {
+function addBookToLibrary(book) {
+    myLibrary.push(book)
+}
 
+function readBooksInLibrary(library) {
+    let library = document.getElementById('library')
+    let bookTable = document.createElement('table')
+    let tableBody = document.createElement('tbody')
+    let tableHeader = document.createElement('tr')
+    tableHeader.innerHTML = (
+    `<th>Title</th>
+    <th>Author</th>
+    <th>Page Count</th>
+    <th>Read It?</th>`)
+    for (book in library) {
+        tableBody.appendChild(printBook(library[book]))
+    }
+    bookTable.appendChild(tableBody)
+    library.appendChild(bookTable)
+}
+
+function printBook(book) {
+    let row = document.createElement('tr')
+    let title = document.createElement('td')
+    title.innerHTML = book.title
+    let author = document.createElement('td')
+    author.innerHTML = book.author
+    let pages = document.createElement('td')
+    pages.innerHTML = book.pages
+    let read = document.createElement('td')
+    read.innerHTML = (book.read ? 'Yes' : 'No')
+    row.appendChild(title)
+    row.appendChild(author)
+    row.appendChild(pages)
+    row.appendChild(read)
+    return row
 }
