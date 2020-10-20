@@ -1,5 +1,5 @@
 let myLibrary = []
-let test = new Book('testTitles', 'testAuthor', 42, true)
+let test = new Book('testTitles', 'testAuthor', 42, false)
 myLibrary.push(test)
 let theHobbit = new Book('The Hobbi', 'J.R.R. Tolkein', 295, true)
 myLibrary.push(theHobbit)
@@ -46,7 +46,13 @@ function getBookRow(book, id) {
     let pages = document.createElement('td')
     pages.innerHTML = book.pages
     let read = document.createElement('td')
-    read.innerHTML = (book.read ? 'Yes' : 'No')
+    let readState = document.createElement('input')
+    readState.setAttribute('type', 'checkbox')
+    readState.checked = book.read
+    readState.onclick = function () {
+        toggleRead(myLibrary, id)
+    }
+    read.appendChild(readState)
     let remove = document.createElement('button')
     remove.onclick = function(){removeBook(myLibrary, id)}
     remove.textContent = 'REMOVE'
@@ -123,5 +129,10 @@ function submitBook() {
 
 function removeBook(library, id) {
     library.splice(id, 1)
-    readBooksInLibrary(myLibrary)
+    readBooksInLibrary(library)
+}
+
+function toggleRead(library, id) {
+    library[id]['read'] = !(library[id]['read'])
+    readBooksInLibrary(library)
 }
