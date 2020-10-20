@@ -32,12 +32,13 @@ function readBooksInLibrary(library) {
         }
     }
     for (book in library) {
-        tableBody.appendChild(getBookRow(library[book]))
+        tableBody.appendChild(getBookRow(library[book], book))
     }
 }
 
-function getBookRow(book) {
+function getBookRow(book, id) {
     let row = document.createElement('tr')
+    row.setAttribute('data-index', id)
     let title = document.createElement('td')
     title.innerHTML = book.title
     let author = document.createElement('td')
@@ -46,12 +47,16 @@ function getBookRow(book) {
     pages.innerHTML = book.pages
     let read = document.createElement('td')
     read.innerHTML = (book.read ? 'Yes' : 'No')
+    let remove = document.createElement('button')
+    remove.onclick = function(){removeBook(myLibrary, id)}
+    remove.textContent = 'REMOVE'
     let changeRead = document.createElement('td')
     let changeButton = document.createElement('button')
     row.appendChild(title)
     row.appendChild(author)
     row.appendChild(pages)
     row.appendChild(read)
+    row.appendChild(remove)
     return row
 }
 
@@ -113,5 +118,10 @@ function submitBook() {
     while(form.firstChild) {
         form.removeChild(form.lastChild)
     }
+    readBooksInLibrary(myLibrary)
+}
+
+function removeBook(library, id) {
+    library.splice(id, 1)
     readBooksInLibrary(myLibrary)
 }
