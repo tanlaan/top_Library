@@ -1,8 +1,12 @@
+
 let myLibrary = []
-let test = new Book('testTitles', 'testAuthor', 42, false)
-myLibrary.push(test)
-let theHobbit = new Book('The Hobbi', 'J.R.R. Tolkein', 295, true)
-myLibrary.push(theHobbit)
+console.log(localStorage.getItem('library'))
+if(localStorage.getItem('library')){
+    console.log('Got the library')
+    myLibrary = JSON.parse(localStorage.getItem('library'))
+}
+
+
 readBooksInLibrary(myLibrary)
 
 function Book(title, author, pages, read) {
@@ -34,6 +38,8 @@ function readBooksInLibrary(library) {
     for (book in library) {
         tableBody.appendChild(getBookRow(library[book], book))
     }
+    console.log(`Added ${JSON.stringify(library)} to local storage.`)
+    localStorage.setItem('library', JSON.stringify(library))
 }
 
 function getBookRow(book, id) {
