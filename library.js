@@ -46,6 +46,7 @@ function getBookRow(book, id) {
     let pages = document.createElement('td')
     pages.innerHTML = book.pages
     let read = document.createElement('td')
+    read.setAttribute('class', 'book-read')
     let readState = document.createElement('input')
     readState.setAttribute('type', 'checkbox')
     readState.checked = book.read
